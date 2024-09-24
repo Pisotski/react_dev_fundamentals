@@ -1,35 +1,34 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import { useState } from "react";
+import { MyButton } from "./MyButton";
+import { Profile } from "./Profile";
+const user = {
+	name: "Hedy Lamarr",
+	imageUrl: "https://i.imgur.com/yXOvdOSs.jpg",
+	imageSize: 90,
+};
 
-function App() {
-  const [count, setCount] = useState(0)
+const App = () => {
+	const [isLoggedIn, setIsLoggedIn] = useState(false);
 
-  return (
-    <>
-      <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
-}
+	const handleLogIn = () => {
+		const newIsLoggedIn = !isLoggedIn;
+		setIsLoggedIn(newIsLoggedIn);
+	};
 
-export default App
+	return (
+		<div
+			style={{
+				display: "grid",
+				height: "50vh",
+				justifyContent: "center",
+				alignItems: "center",
+			}}
+		>
+			<h1>My react app</h1>
+			<MyButton handleClick={handleLogIn} />
+			{isLoggedIn ? <Profile user={user} /> : <>please log in</>}
+		</div>
+	);
+};
+
+export { App };
