@@ -1,5 +1,9 @@
-const MyButton = ({ handleClick }) => {
-	return <button onMouseDown={handleClick}>Log In</button>;
+const MyButton = ({ handleClick, buttonName }) => {
+	return (
+		<button name={buttonName} onMouseDown={handleClick}>
+			{buttonName}
+		</button>
+	);
 };
 
 export { MyButton };
