@@ -1,10 +1,10 @@
 import { useState } from "react";
-import { MyButton } from "./MyButton";
-import { ClassOne } from "./ClassOne";
-import { ClassTwo } from "./ClassTwo";
+import { MyButton } from "./class_1/MyButton";
+import { ClassOne } from "./class_1/ClassOne";
+import { ClassTwo } from "./class_2/ClassTwo";
 
 const App = () => {
-	const [display, setDisplay] = useState("");
+	const [display, setDisplay] = useState("class-two");
 
 	const handleSwitchClass = (e) => {
 		const showClassNumber = e.target.name;

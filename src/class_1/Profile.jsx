@@ -1,4 +1,4 @@
-import "./profile.css";
+import "../assets/profile.css";
 
 const Profile = ({ user: { name, imageUrl, imageSize } }) => {
 	return (
