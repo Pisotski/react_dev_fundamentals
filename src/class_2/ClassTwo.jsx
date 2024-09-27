@@ -29,7 +29,6 @@ const checkCol = (matrix, col) => {
 			result = matrix[1][col] === matrix[2][col];
 		}
 	}
-
 	return result;
 };
 
@@ -57,8 +56,9 @@ const checkNewBoard = (matrix, row, col) => {
 	if (row !== 1 || col !== 1) {
 		if (checkDiagonals(matrix)) result = true;
 	}
-	if (checkRow(matrix, row, col)) result = true;
-	if (checkCol(matrix, row, col)) result = true;
+	console.log();
+	if (checkRow(matrix, row)) result = true;
+	if (checkCol(matrix, col)) result = true;
 
 	return result;
 };
