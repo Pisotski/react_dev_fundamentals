@@ -67,20 +67,30 @@ const ClassTwo = ({ showClass }) => {
 	const [player, setPlayer] = useState(true);
 	const [board, setBoard] = useState(initMatrix);
 	const [winner, setWinner] = useState("");
+	const [history, setHistory] = useState([]);
+	const [currentMove, setCurrentMove] = useState(0);
 
 	const handleNextTurn = () => {
 		const nextPlayer = !player;
 		setPlayer(nextPlayer);
 	};
 
+	const addToHistory = (board) => {
+		const newHistory = [...history.slice(0, currentMove + 1), board];
+		setCurrentMove(newHistory.length - 1);
+		setHistory(newHistory);
+		setBoard(newHistory[newHistory.length - 1]);
+	};
+
 	const handleSquareClick = (e) => {
+		if (winner) return;
 		const row = Number(e.target.dataset.coordinates[0]);
 		const col = Number(e.target.dataset.coordinates[1]);
 		if (board[row][col] === null) {
 			const newBoard = cloneDeep(board);
 			const symbol = player ? "x" : "o";
 			newBoard[row][col] = symbol;
-			setBoard(newBoard);
+			addToHistory(newBoard);
 			if (!checkNewBoard(newBoard, row, col)) {
 				handleNextTurn();
 			} else {
@@ -88,6 +98,13 @@ const ClassTwo = ({ showClass }) => {
 				setWinner(symbol);
 			}
 		}
+	};
+
+	const handleLeap = (e) => {
+		const turn = Number(e.target.name);
+		setBoard(history[turn]);
+		setPlayer(currentMove % 2 === 0);
+		setCurrentMove(turn);
 	};
 
 	return (
@@ -103,6 +120,13 @@ const ClassTwo = ({ showClass }) => {
 			<div>
 				<Player player={player} />
 				<Board board={board} handleClick={handleSquareClick} />
+				{history.map((leap, i) => {
+					return (
+						<button name={i} key={leap} onClick={handleLeap}>
+							turn {i + 1}
+						</button>
+					);
+				})}
 			</div>
 			{winner && <div>winner is {winner}</div>}
 		</div>
